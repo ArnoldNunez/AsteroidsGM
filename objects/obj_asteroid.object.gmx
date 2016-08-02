@@ -26,6 +26,19 @@
           <argument>
             <kind>1</kind>
             <string>/** This is called when the object is created **/
+
+
+/// If asteroid is on top of player choose new location for asteroid
+while (place_meeting(x, y, obj_player))
+{
+    /// Asteroid on top of player so change pos
+    x = random(room_width);
+    y = random(room_height);
+}
+
+
+
+
 image_speed = 0;            /// Image speed is # of frames animated per sec
 image_index = irandom(2);   /// Image ind stores the sprite frame the obj is curr on
 
@@ -59,6 +72,9 @@ instance_create(x, y, obj_asteroid_s);
 
 /// Keep score
 global.points += 50;
+
+/// Play sound
+audio_play_sound(snd_explode, 0, 0);
 </string>
           </argument>
         </arguments>

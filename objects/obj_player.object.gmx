@@ -147,6 +147,9 @@ if (speed &gt; 5)
             <string>bullet = instance_create(x, y, obj_bullet);
 bullet.speed = 15;
 bullet.direction = image_angle;
+
+/// Play the laser sound
+audio_play_sound(snd_shoot, 0, 0);
 </string>
           </argument>
         </arguments>
