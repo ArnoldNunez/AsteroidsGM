@@ -29,14 +29,12 @@
 
 
 /// If asteroid is on top of player choose new location for asteroid
-while (place_meeting(x, y, obj_player))
+while (distance_to_object(obj_player) &lt; 100)
 {
     /// Asteroid on top of player so change pos
     x = random(room_width);
     y = random(room_height);
 }
-
-
 
 
 image_speed = 0;            /// Image speed is # of frames animated per sec
@@ -113,17 +111,65 @@ audio_play_sound(snd_explode, 0, 0);
     <event eventtype="4" ename="obj_player">
       <action>
         <libid>1</libid>
-        <id>331</id>
-        <kind>0</kind>
+        <id>603</id>
+        <kind>7</kind>
         <userelative>0</userelative>
         <isquestion>0</isquestion>
-        <useapplyto>0</useapplyto>
-        <exetype>1</exetype>
-        <functionname>action_restart_game</functionname>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
         <codestring></codestring>
-        <whoName>self</whoName>
+        <whoName>other</whoName>
         <relative>0</relative>
         <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>/// Only want to collide if not in invincible sprite
+if (sprite_index == spr_player)
+{
+    var randomAngle = random(360);
+    var o;
+    
+    /// Create the broken ship pieces
+    o = instance_create(x, y, obj_deadplayer);
+    o.angle = 0 + randomAngle;
+    
+    o = instance_create(x, y, obj_deadplayer);
+    o.angle = 120 + randomAngle;
+    
+    o = instance_create(x, y, obj_deadplayer);
+    o.angle = 240 + randomAngle;
+    
+    /// This allows us to affect all obj_deadplayers in the game
+    with (obj_deadplayer)
+    {
+        direction = angle;
+        image_angle = angle;
+        speed = 3;
+    }
+    
+    audio_play_sound(snd_explode, 10, 0);
+    
+    /// Check for # of lives
+    if (global.life &gt; 0)
+    {
+        global.life -= 1;
+        instance_create(room_width / 2, room_height / 2, obj_player);
+    }
+    else
+    {
+        /// Create game over objext
+        instance_create(0, 0, obj_gameover);
+    }
+    
+    
+    instance_destroy();
+
+}
+</string>
+          </argument>
+        </arguments>
       </action>
     </event>
     <event eventtype="7" enumb="0">

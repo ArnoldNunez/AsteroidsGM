@@ -27,6 +27,7 @@
             <kind>1</kind>
             <string>/// This is a global variable for score
 global.points = 0;      /// any other obj can access it.
+global.life = 2;        /// The number of lives we have
 </string>
           </argument>
         </arguments>
@@ -49,8 +50,39 @@ global.points = 0;      /// any other obj can access it.
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>draw_set_color(c_white);    /// Set drawing color to white
-draw_text(64, 32, global.points);
+            <string>draw_set_halign(fa_left);
+draw_set_valign(fa_top);
+draw_set_color(c_white);    /// Set drawing color to white
+draw_set_font(fnt_small);
+
+/// Draw the points
+draw_text(64, 32, "Score: " + string(global.points));
+
+/// Draw the number of lives
+draw_text(64, 64, "Lives: " + string(global.life));
+</string>
+          </argument>
+        </arguments>
+      </action>
+    </event>
+    <event eventtype="9" enumb="82">
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>game_restart();
 </string>
           </argument>
         </arguments>
